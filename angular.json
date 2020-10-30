@@ -12,7 +12,7 @@
       },
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "pk-ramana-transport",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ramana-transport"
+    }
+  },
+  "defaultProject": "ramana-transport",
+  "cli": {
+    "analytics": "7999608c-64dc-4f1c-9e89-a95f77db9463"
+  }
 }
