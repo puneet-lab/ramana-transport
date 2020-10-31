@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ramana-induction": {
+      "hosting": {
+        "ramana-transport": [
+          "ramana-induction"
+        ]
+      }
+    }
+  }
+}
