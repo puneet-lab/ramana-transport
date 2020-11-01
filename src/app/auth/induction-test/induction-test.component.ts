@@ -8,6 +8,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forOwn } from 'lodash';
 import {
@@ -16,11 +17,13 @@ import {
   getInductionURL,
 } from 'src/app/shared-components';
 import {
+  IInductionStep,
   InductionLinkType,
   IQuestionOptions,
   IQuestions,
   PagesLinkType,
 } from 'src/app/shared-components/model';
+import { InductionTestDetailsComponent } from '../induction-test-details/induction-test-details.component';
 import { InductionService } from '../induction.service';
 function incorrectAnswer(correctAnswer: string): ValidatorFn {
   return (c: AbstractControl): { [key: string]: boolean } | null => {
@@ -50,6 +53,9 @@ export class InductionTestComponent implements OnInit {
     answerincorrect: 'Answer is incorrect. Please try again',
   };
 
+  currentInductionStep: IInductionStep = null;
+  allInductionSteps: IInductionStep[] = null;
+
   get allQuestionArray(): FormArray {
     return this.allQuestionsForm.controls.questions as FormArray;
   }
@@ -58,10 +64,12 @@ export class InductionTestComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private inductionService: InductionService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public dialog: MatDialog
   ) {
     this.route.params.subscribe(async (params) => {
       this.currentTest = params?.type;
+      this.getInductionSteps();
       await this.getInductionQuestions();
     });
     this.currentTest = this.route.snapshot.paramMap
@@ -71,8 +79,17 @@ export class InductionTestComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    console.log('iscalled');
+    this.inductionService.isUserExists();
+  }
+
+  getInductionSteps() {
     this.inductionService.setInductionStep();
-    await this.getInductionQuestions();
+    this.allInductionSteps = this.inductionService.inductionSteps;
+    this.currentInductionStep = getInductionStepByInductionType(
+      this.allInductionSteps,
+      this.currentTest as InductionLinkType
+    );
   }
 
   async getInductionQuestions() {
@@ -86,6 +103,7 @@ export class InductionTestComponent implements OnInit {
       this.questions = questions;
       this.setQuestions(questions);
       this.isLoading = false;
+      this.showDetailDialog();
     });
   }
 
@@ -124,8 +142,8 @@ export class InductionTestComponent implements OnInit {
 
   onSaveInduction() {
     const isFormValid = this.allQuestionsForm.valid;
-    //isFormValid ? this.goToNextStep() : this.showFormError();
-    isFormValid ? this.goToNextStep() : this.goToNextStep();
+    isFormValid ? this.goToNextStep() : this.showFormError();
+    //isFormValid ? this.goToNextStep() : this.goToNextStep();
   }
 
   showFormError() {
@@ -150,20 +168,13 @@ export class InductionTestComponent implements OnInit {
   }
 
   goToNextStep() {
-    const allInductionSteps = this.inductionService.inductionSteps;
-    const currentInductionStep = getInductionStepByInductionType(
-      allInductionSteps,
-      this.currentTest as InductionLinkType
-    );
-
-    const { step } = currentInductionStep || {};
-    if (step === 6) {
+    const { step } = this.currentInductionStep || {};
+    if (step === 7) {
       this.goToInductionFinish();
       return;
     }
-
     const newInductionStep = getInductionStepByInductionStep(
-      allInductionSteps,
+      this.allInductionSteps,
       step + 1
     );
     const { inductionType } = newInductionStep || {};
@@ -171,11 +182,20 @@ export class InductionTestComponent implements OnInit {
     const nextURL = getInductionURL(inductionType);
     this.router.navigate([nextURL]);
   }
+
   goToInductionFinish() {
     this.router.navigate([PagesLinkType.INDUCTION_FINISHED]);
   }
 
   saveInductionData(): void {
     this.inductionService.saveData();
+  }
+
+  showDetailDialog(): void {
+    this.dialog.open(InductionTestDetailsComponent, {
+      data: {
+        inductionType: this.currentInductionStep,
+      },
+    });
   }
 }

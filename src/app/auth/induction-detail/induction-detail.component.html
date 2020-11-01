@@ -1,7 +1,32 @@
-<p>induction-detail works!</p>
-<button
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  (click)="goToInductionTestDetails()"
->
-  Button
-</button>
+<div>
+  <div class="h-32 flex items-center">
+    <div class="m-3">
+      <div class="text-3xl">Induction has following sections:</div>
+    </div>
+  </div>
+  <div
+    class="flex h-auto bg-gray-300 bg-gradient-to-br items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+  >
+    <div *ngIf="inductionTypes">
+      <mat-vertical-stepper class="bg-gray-300 bg-gradient-to-br" #stepper>
+        <div *ngFor="let type of inductionTypes; let i = index">
+          <mat-step [stepControl]="i + 1">
+            <form>
+              <ng-template matStepLabel>{{ type.label }} 1</ng-template>
+            </form>
+          </mat-step>
+        </div>
+      </mat-vertical-stepper>
+      <button
+        (click)="goToInductionTest()"
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full"
+      >
+        Start Induction Test
+      </button>
+      <p class="text-red-500 text-xs italic">
+        Note: If you terminate induction without finishing it. Your data will
+        not be saved!
+      </p>
+    </div>
+  </div>
+</div>

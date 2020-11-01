@@ -1,6 +1,6 @@
 <pk-ramana-transport-loader
   block="true"
-  text="loadingText"
+  [text]="loadingText"
   *ngIf="isLoading"
 ></pk-ramana-transport-loader>
 
@@ -9,19 +9,10 @@
 >
   <div class="max-w-md w-full rounded overflow-hidden shadow-lg p-10 bg-white">
     <div>
-      <img
-        class="mx-auto h-12 w-auto"
-        src="https://tailwindui.com/img/logos/workflow-mark-on-white.svg"
-        alt="Workflow"
-      />
       <h2
         class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900"
       >
         Sign in to Ramana Transport account
-        <br />
-        {{ loginForm.value | json }}
-        <br />
-        {{ loginForm.valid }}
       </h2>
     </div>
     <form [formGroup]="loginForm" class="mt-8" (ngSubmit)="onLogin()">
@@ -83,7 +74,5 @@
         </button>
       </div>
     </form>
-
-    <button class="primary" type="button" (click)="onLogout()">Logout</button>
   </div>
 </div>

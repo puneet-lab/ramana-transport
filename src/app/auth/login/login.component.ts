@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { PagesLinkType } from 'src/app/shared-components/model';
 import { AuthService } from '../auth.service';
@@ -16,25 +17,24 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private snackBarService: MatSnackBar
   ) {}
 
   ngOnInit(): void {
+    this.authService.isSignedIn$.subscribe((isLoggedIn) => {
+      if (isLoggedIn) {
+        this.router.navigate([PagesLinkType.USER_DETAILS]);
+      }
+    });
     this.initLoginForm();
   }
 
   initLoginForm() {
     this.loginForm = this.formBuilder.group({
-      email: [
-        'transportramana@gmail.com',
-        [Validators.required, Validators.email],
-      ],
-      password: ['123456', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
     });
-    console.log(
-      'LoginComponent -> initLoginForm ->  this.loginForm ',
-      this.loginForm
-    );
   }
 
   async onLogin() {
@@ -57,13 +57,12 @@ export class LoginComponent implements OnInit {
     if (isLogin) {
       this.router.navigate([PagesLinkType.USER_DETAILS]);
     } else {
-      // TODO::
-      alert('Error in Loggin in, try again later');
+      this.openSnackBar('Error in Loggin in, check your email id and password');
     }
     this.isLoading = false;
   }
 
-  onLogout() {
-    this.authService.logout();
+  openSnackBar(text: string) {
+    this.snackBarService.open(text, '', { duration: 6000 });
   }
 }

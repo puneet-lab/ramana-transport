@@ -4,6 +4,7 @@ export enum AppName {
 
 export enum PagesLinkType {
   LOGIN = 'login',
+  HOME = 'home',
   USER_DETAILS = 'user-details',
   INDUCTION = 'induction',
   INDUCTION_DETAILS = 'induction_details',
@@ -28,6 +29,7 @@ export interface IUser {
   mobileNo: string;
   altMobileNo: string;
   address: string;
+  status: UserStatusType;
   createdAt: Date;
 }
 
@@ -51,4 +53,11 @@ export interface IQuestionOptions {
 export interface IInductionStep {
   step: number;
   inductionType: InductionLinkType;
+  label: string;
+}
+
+export enum UserStatusType {
+  NEW = 'NEW',
+  STARTED = 'STARTED',
+  FINISHED = 'FINISHED',
 }

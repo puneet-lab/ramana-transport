@@ -1,7 +1,303 @@
-<p>induction-test-details works!</p>
-<button
-  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-  (click)="goToInductionTest()"
->
-  Button
-</button>
+<div>
+  <div>
+    <mat-dialog-content>
+      <div class="mt-2 mb-2">
+        <!-- STANDARD_BEHAVIOR -->
+        <div
+          *ngIf="
+            inductionType?.inductionType === allInductionTypes.STANDARD_BEHAVIOR
+          "
+        >
+          <div class="text-3xl mb-4 text-blue-500">
+            {{ inductionType.label }}
+          </div>
+          <div *ngFor="let standardData of standardBehaviorData; let i = index">
+            <div class="text-blue-500 text-lg">{{ standardData.title }}</div>
+            <p class="text-gray-700" [innerHTML]="standardData.content"></p>
+            <div *ngIf="standardData?.image">
+              <img [src]="standardData.image" [alt]="standardData.title" />
+            </div>
+          </div>
+        </div>
+        <!-- STANDARD_BEHAVIOR END -->
+
+        <!-- ANTI_DISCRIMINATION_HARASSEMENT -->
+        <div
+          *ngIf="
+            inductionType?.inductionType ===
+            allInductionTypes.ANTI_DISCRIMINATION_HARASSEMENT
+          "
+        >
+          <div class="text-3xl mb-4 text-blue-500">
+            {{ inductionType.label }}
+          </div>
+          <div>
+            In Ramana transport every employee comes under the radar of
+            anti-discrimination and anti-harassment policy. We do not tolerate
+            any kind of disrespectful behaviour inside and outside company when
+            an employee is carrying Ramana Transport’s name. In this company we
+            believe in respecting each other’s cultural and geological
+            background, beliefs, values, lifestyle and experiences. A person can
+            agree or disagree to another but inappropriate comments are not
+            acceptable in our work culture.
+          </div>
+          <img src="/assets/anti-desc1.png" class="my-3" alt="image" />
+          <div>
+            We aim to make Ramana Transport a diverse work environment without
+            any kind of discrimination. Some example of discrimination are;<br />
+            1. On the basis of race <br />
+            2. On the Basis of skin colour <br />
+            3. Gender based <br />
+            4. Age based <br />
+            5. Disability based <br />
+            6. Sexual orientation based <br />
+            7. Cultural basis <br />
+          </div>
+          <img src="/assets/anti-desc2.png" class="my-3" alt="image" />
+          <div>
+            Any harassment based on any kind of discrimination is not tolerable
+            in our work society. As we encourage employees to report any kind of
+            internal or external harassment with at the assurance of protection
+            from victimisation and reprisals. Any employee found guilty under
+            the company policies would face disciplinary action. Some examples
+            of harassments are;<br />
+            1. Uncomfortable staring at someone.<br />
+            2. Verbal abuse.<br />
+            3. Offensive jokes or comments about physical appearance, sexual 4.
+            orientation, gender, age, disability or any <br />other means.<br />
+            5. Unwanted invitation to go on date or request for sex.<br />
+            6. Asking private life or body questions.<br />
+            7. Unwanted touching, patting, pinching or being physical without 8.
+            consent.<br />
+            9. Unwanted contact or sending images or videos of sexual nature via
+            10. person, call, messages, emails or any means.<br />
+          </div>
+          <img src="/assets/anti-desc3.png" class="my-3" alt="image" />
+        </div>
+        <!-- ANTI_DISCRIMINATION_HARASSEMENT END-->
+
+        <!-- HEALTH_AND_SAFETY -->
+        <div
+          *ngIf="
+            inductionType?.inductionType === allInductionTypes.HEALTH_AND_SAFETY
+          "
+        >
+          <div class="text-3xl mb-4 text-blue-500">
+            {{ inductionType.label }}
+          </div>
+          <div class="my-3">
+            While working with Ramana Transport every employee must adhere to
+            Workplace Health &amp; Safety, if unsure you can grab a copy of WHS
+            policy from fleet manager, although every work-site we visit also
+            have their own WHS policy and we have to follow that. Another key
+            element in our business model is Chain of Responsibility (COR), as
+            parties in COR are;<br />
+            1. an employer of a driver<br />
+            2. a prime contractor for the driver – if the vehicle’s driver is
+            self-employed<br />
+            3. an operator of the vehicle<br />
+            4. a scheduler for the vehicle<br />
+            5. a loading manager for any goods in the vehicle<br />
+            6. a loader and/or unloader of a vehicle<br />
+            7. a consignor of any goods for transport by the vehicle<br />
+            8. a consignee of any goods in the vehicle<br />
+            9. A loader and/or unloader of any goods in the vehicle.<br /><br />
+
+            So it is duty of a driver to reject a load if he/she feel
+            uncomfortable with. Load should always be in a good condition where
+            it can be transited without damage, any damage prior to pick up,
+            click picture and send it to allocator. Wait for the direction even
+            before strapping and moving curtains. Never work near the forklift,
+            as we require a 3 metre distance from a start and working forklift.
+            Never stand or work on one side of truck while other side being
+            loaded.
+          </div>
+
+          <img src="/assets/health1.png" class="my-3" alt="image" />
+
+          <div *ngFor="let standardData of healthAndSafetyData; let i = index">
+            <div class="text-blue-500 text-lg">{{ standardData.title }}</div>
+            <p class="text-gray-700" [innerHTML]="standardData.content"></p>
+            <div *ngIf="standardData?.image">
+              <img [src]="standardData.image" [alt]="standardData.title" />
+            </div>
+          </div>
+        </div>
+        <!-- HEALTH_AND_SAFETY END-->
+
+        <!-- FATIGUE_MANAGEMENT  -->
+        <div
+          *ngIf="
+            inductionType?.inductionType ===
+            allInductionTypes.FATIGUE_MANAGEMENT
+          "
+        >
+          <div class="text-3xl mb-4 text-blue-500">
+            {{ inductionType.label }}
+          </div>
+          <div class="my-3">
+            <div *ngFor="let standardData of fatiqueData; let i = index">
+              <div class="text-blue-500 text-lg">{{ standardData.title }}</div>
+              <p class="text-gray-700" [innerHTML]="standardData.content"></p>
+              <div *ngIf="standardData?.image">
+                <img [src]="standardData.image" [alt]="standardData.title" />
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- FATIGUE_MANAGEMENT  END-->
+
+        <!-- LOAD_SECURITY  -->
+        <div
+          *ngIf="
+            inductionType?.inductionType === allInductionTypes.LOAD_SECURITY
+          "
+        >
+          <div class="text-3xl mb-4 text-blue-500">
+            {{ inductionType.label }}
+          </div>
+          <div class="my-3">
+            <div>
+              Safe loading of a vehicle is crucial in preventing injury to road
+              users and damaging property. There are huge economic savings to
+              the community if the delivery arrives at its destination
+              intact.<br />
+              The safe loading of vehicles is vitally important in preventing
+              injury to people and damage to property. There are fiscal benefits
+              to all if the load arrives at its destination intact and without
+              damage. <br />
+              Ramana transport provide all the necessary restraining equipment
+              for each truck. It is responsibility of driving to keep record and
+              maintenance of straps, chains, pallet jacks, pallet angles,
+              tarpaulin, oversize sign, flags, flashing lights and other
+              equipment. We would like to inform that all the restraining
+              equipment is property of Raman transport, and should be kept in
+              truck at all time. Any of this stuff should not be removed from
+              the vehicle at any time. We recommend only use of straps and
+              chains if necessary instead of ropes, as straps and chains have
+              comparatively high tension. A load is required to withstand;<br /><br />
+              As 80% of its weight in forward direction<br />
+              50% of its weight in rear and sideways<br />
+              And 20% of its weight upwards<br /><br />
+            </div>
+          </div>
+          <img src="/assets/load1.png" class="my-3" alt="image" />
+          <div class="my-3">
+            Another key points to remember while restraining are;<br /><br />
+            1. Please be aware that any item, heavy or light, need to be
+            restrained at all time.<br />
+            2. A tautliner’s curtains are not enough to hold items even in load
+            restrain curtains, restrains are compulsory in Ramana transport
+            because of the product/item safety.<br />
+            3. When load is settled, after driving a little distance, always
+            double check the load and webbing tension. <br />
+            4. Lower the fraction is, higher the risk is of load movement<br />
+            5. COR rules applied when carrying an item on the truck<br />
+            6. An individual can face a fine of up to300, 000 and in jail up to
+            5 years, whether, a company can face fines up to 3,000,000
+            dollars.<br />
+          </div>
+          <img src="/assets/load2.png" class="my-3" alt="image" />
+
+          <div class="my-3">
+            <div class="text-blue-500 text-lg">Tips for good restraining</div>
+            <br /><br />
+            1. A load against the headboard is more secure and easy to
+            restrain<br />
+            2. A load should be placed in a way, that its weight should be
+            evenly distributed on axles<br />
+            3. If needed, distribute the load to keep sufficient weight on all
+            axles<br />
+            4. Identify unstable loads, and try to tie down as much as possible,
+            always recheck the after time interval.<br />
+            5. Anything item should not be placed straight on the tray. Items
+            should be on the pallets or dunnage are required on tray. <br />
+            6. Always use rubber mats or dunnage on the tray to keep the
+            friction maximum.<br />
+            7. Higher the angle, weaker will be the lashing effectiveness, so
+            try to keep the angle as low as possible<br />
+            8. In multi-layer sheets or product, dunnage should be placing in a
+            straight line under the lashings, not randomly <br />
+          </div>
+          <img src="/assets/load3.png" class="my-3" alt="image" />
+        </div>
+        <!-- LOAD_SECURITY   END-->
+        <!-- DISTRACTIONS  -->
+        <div
+          *ngIf="
+            inductionType?.inductionType === allInductionTypes.DISTRACTIONS
+          "
+        >
+          <div class="text-3xl mb-4 text-blue-500">
+            {{ inductionType.label }}
+          </div>
+          <div class="my-3">
+            When spending all day on road, concentrating and focusing on road,
+            it takes very minor thing to distract a person. As a result,
+            distractions are responsible for one in ten crash fatalities. When
+            it comes to distractions, most of us think only about mobile phone
+            using, however there are number of thing which can distract a
+            driver. Some of the examples are;<br /><br />
+            1. Using mobile phone(texting, youtube, emails)<br />
+            2. Child crying or opening seat belt<br />
+            3. Carrying a dag in cab<br />
+            4. Eating or drinking<br />
+            5. Navigation(missing a turn, lane change directions)<br />
+            6. Stereo(music change, finding favourite songs)<br />
+            7. Talking on phone or passenger<br />
+            8. Billboards/fancy advertising<br />
+            9. Any distractions of road<br /><br />
+
+            Although in all of these, mobile phone is considered to be most
+            dangerous as because of reason it is very intentional and
+            unimportant according to the situation. Government laws also refrain
+            drivers using mobile phones, while driving, so for the safety of our
+            and people around us, avoid any intentional distractions. Even if
+            the call or email is important, could be the one you waiting
+            overwhelmingly, what you can do is, pull over where safe, handbrakes
+            on, then answer or read and if necessary, reply. But Ramana
+            Transport do not allow drivers to use mobile phone, or any
+            distraction while driving, any driver caught doing so, would face
+            disciplinary action.
+          </div>
+          <img src="/assets/distraction1.png" class="my-3" alt="image" />
+        </div>
+        <!-- DISTRACTIONS  -->
+        <!-- BASE_ENTRY  -->
+        <div
+          *ngIf="inductionType?.inductionType === allInductionTypes.BASE_ENTRY"
+        >
+          <div class="text-3xl mb-4 text-blue-500">
+            {{ inductionType.label }}
+          </div>
+          <div class="my-3">
+            In yard, 287 sherbrooke road, willawong, every driver must adhere to
+            the following yrad rules;<br /><br />
+            1. Upon entry and exit, speed should be 9km per hour, at any time
+            speed should not go higher than 10 km per hour.<br />
+            2. In yard at all times watch out for the hazards. Always look for
+            the stuff lying on the surface, avoid hitting anything that can
+            damage tyre of truck.<br />
+            Only reverse parking is allowed inside yard, whether it’s the car
+            you drive or truck. 3. In yard at all times, no excessive revving.
+            <br />
+            4. While driving in yard always watch out for people working in the
+            yard. Mechanic, someone with pallet jack, a forklift driver, some
+            visitor, someone from office can get injured because of negligence
+            of operator.<br /><br />
+          </div>
+        </div>
+        <!-- BASE_ENTRY  END -->
+      </div>
+    </mat-dialog-content>
+  </div>
+  <div class="my-2 flex justify-end">
+    <button
+      class="bg-blue-500 w-auto hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      (click)="onCloseDialog()"
+    >
+      Close
+    </button>
+  </div>
+  <div></div>
+</div>

@@ -1,20 +1,24 @@
 <pk-ramana-transport-loader
   block="true"
-  text="loadingText"
+  [text]="loadingText"
   *ngIf="isLoading"
 ></pk-ramana-transport-loader>
 <div>
-  <button
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    (click)="saveInductionData()"
-  >
-    Button
-  </button>
+  <div class="h-32 flex items-center">
+    <div class="m-3">
+      <div class="text-3xl">
+        Induction: {{ currentInductionStep.step }} -
+        {{ currentInductionStep.label }}
+      </div>
+    </div>
+    <button
+      (click)="showDetailDialog()"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Show Details
+    </button>
+  </div>
 </div>
-
-<p>induction-test! {{ allQuestionsForm?.value | json }}</p>
-<p>induction-test valid! {{ allQuestionsForm?.valid }}</p>
-
 <div class="p-5 bg-gray-300">
   <div *ngIf="allQuestionsForm">
     <form [formGroup]="allQuestionsForm" (ngSubmit)="onSaveInduction()">

@@ -1,20 +1,55 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
   IALlQuestions,
   IInductionStep,
   InductionLinkType,
+  PagesLinkType,
 } from '../shared-components/model';
-
+import { UserDetailService } from './user-detail/user-detail.service';
+const inductionTypes = [
+  {
+    type: InductionLinkType.STANDARD_BEHAVIOR,
+    label: 'Standard behaviour',
+  },
+  {
+    type: InductionLinkType.ANTI_DISCRIMINATION_HARASSEMENT,
+    label: 'Anti-discrimination and anti-harassment',
+  },
+  {
+    type: InductionLinkType.HEALTH_AND_SAFETY,
+    label: 'Health & Safety',
+  },
+  {
+    type: InductionLinkType.FATIGUE_MANAGEMENT,
+    label: 'Fatigue management',
+  },
+  {
+    type: InductionLinkType.LOAD_SECURITY,
+    label: 'Load security',
+  },
+  {
+    type: InductionLinkType.DISTRACTIONS,
+    label: 'Distractions while driving',
+  },
+  {
+    type: InductionLinkType.BASE_ENTRY,
+    label: 'Base entry guidelines',
+  },
+];
 @Injectable({
   providedIn: 'root',
 })
 export class InductionService {
-  constructor(private aFirestore: AngularFirestore) {}
+  constructor(
+    private aFirestore: AngularFirestore,
+    private userDetailService: UserDetailService,
+    private router: Router
+  ) {}
 
   inductionSteps: IInductionStep[];
-  currentStep = 1;
 
   getInductionQuestions(type: InductionLinkType): Observable<IALlQuestions> {
     try {
@@ -28,29 +63,24 @@ export class InductionService {
   }
 
   setInductionStep() {
-    const inductionTypes = [
-      InductionLinkType.STANDARD_BEHAVIOR,
-      InductionLinkType.ANTI_DISCRIMINATION_HARASSEMENT,
-      InductionLinkType.HEALTH_AND_SAFETY,
-      InductionLinkType.FATIGUE_MANAGEMENT,
-      InductionLinkType.LOAD_SECURITY,
-      InductionLinkType.BASE_ENTRY,
-    ];
     this.inductionSteps = inductionTypes.map(
       (inductionType, index) =>
         ({
           step: index + 1,
-          inductionType,
+          inductionType: inductionType.type,
+          label: inductionType.label,
         } as IInductionStep)
     );
-    console.log(
-      'InductionService -> setInductionStep -> this.inductionSteps',
-      this.inductionSteps
-    );
+  }
+  isUserExists() {
+    const userID = this.userDetailService.getUserIDFromLocalStorage();
+    if (userID === null || userID === undefined || userID?.length === 0) {
+      this.router.navigate([PagesLinkType.LOGIN]);
+    }
   }
 
   saveData() {
-    const data = {
+    /* const data = {
       allQuestions: [
         {
           Question: 'What is the maximum speed in yard?',
@@ -95,6 +125,6 @@ export class InductionService {
         .set(data);
     } catch (error) {
       console.log('InductionService -> saveData -> error', error);
-    }
+    } */
   }
 }
