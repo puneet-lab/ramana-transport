@@ -1,13 +1,51 @@
 <div>
-  <div class="flex h-screen">
-    <div class="m-auto">
+  <div class="flex h-screen justify-center">
+    <div class="mt-20">
       <div class="text-4xl">Thank You for completing induction</div>
       <div class="flex justify-center">
         <button
           class="bg-blue-500 my-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          (click)="downloadPdf()"
         >
           Download Induction Certificate
         </button>
+      </div>
+      <div
+        class="my-pdf border-gray-600"
+        id="pdf"
+        style="height: 600px; width: 800px; border-width: 5px"
+      >
+        <div class="" style="border-radius: 4px" *ngIf="user">
+          <div class="flex mt-10 justify-center">
+            <div class="text-6xl text-blue-500">Ramana Transport</div>
+          </div>
+          <br />
+          <div class="flex mt-10 justify-center">
+            <div class="text-2xl mt-10 italic">
+              Congratulations on Completing
+            </div>
+          </div>
+
+          <div class="flex mt-10 justify-center">
+            <div class="text-xl mt-10">This is to certify that</div>
+          </div>
+
+          <div class="flex mt-3 justify-center">
+            <div class="text-4xl mt-6 text-blue-400 bold">
+              {{ user.firstName }} {{ user.lastName }}
+            </div>
+          </div>
+
+          <div class="flex mt-3 justify-center">
+            <div class="text-xl mt-10">
+              successfully completed induction test of Ramana Transport
+            </div>
+          </div>
+
+          <div class="flex mt-3 justify-center">
+            <div class="text-xl mt-10">{{ certificateDate | date }}</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
