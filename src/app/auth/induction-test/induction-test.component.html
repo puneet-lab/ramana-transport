@@ -1,1 +1,62 @@
-<p>induction-test works!</p>
+<pk-ramana-transport-loader
+  block="true"
+  text="loadingText"
+  *ngIf="isLoading"
+></pk-ramana-transport-loader>
+<div>
+  <button
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    (click)="saveInductionData()"
+  >
+    Button
+  </button>
+</div>
+
+<p>induction-test! {{ allQuestionsForm?.value | json }}</p>
+<p>induction-test valid! {{ allQuestionsForm?.valid }}</p>
+
+<div class="p-5 bg-gray-300">
+  <div *ngIf="allQuestionsForm">
+    <form [formGroup]="allQuestionsForm" (ngSubmit)="onSaveInduction()">
+      <div formArrayName="questions">
+        <div *ngFor="let question of allQuestionArray.controls; let i = index">
+          <div class="question-container bg-white bg-gradient-to-br mb-2">
+            <div class="w-full rounded overflow-hidden shadow-lg sha p-2">
+              <div
+                class="font-sans font-medium tracking-wider text-base text-gray-800 mb-1"
+                [innerText]="getQuestionForDisplay(i)"
+              ></div>
+              <div [formGroupName]="i">
+                <div *ngFor="let item of getQuestionOptions(i); let j = index">
+                  <label class="inline-flex items-center">
+                    <input
+                      type="radio"
+                      class="form-radio"
+                      [value]="item.value"
+                      [formControlName]="i"
+                    />
+                    <span
+                      class="ml-2"
+                      class="font-sans ml-2 tracking-wider text-gray-700 mb-1"
+                      >{{ item.label }}</span
+                    >
+                  </label>
+                </div>
+              </div>
+              <p
+                class="text-red-500 text-xs italic"
+                [id]="'errorMessage' + i"
+              ></p>
+            </div>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

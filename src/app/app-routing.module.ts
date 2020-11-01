@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { InductionDetailComponent } from './auth/induction-detail/induction-detail.component';
+import { InductionFinishComponent } from './auth/induction-finish/induction-finish.component';
 import { InductionTestDetailsComponent } from './auth/induction-test-details/induction-test-details.component';
 import { InductionTestComponent } from './auth/induction-test/induction-test.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: PagesLinkType.INDUCTION_TEST_DETAILS,
     component: InductionTestDetailsComponent,
+  },
+  {
+    path: PagesLinkType.INDUCTION_FINISHED,
+    component: InductionFinishComponent,
   },
   {
     path: `${PagesLinkType.INDUCTION}/:type`,

@@ -82,7 +82,7 @@ export class UserDetailComponent implements OnInit {
 
   showUserDetailError() {
     const userDetailFormControls = this.userDetailForm.controls;
-    forOwn(userDetailFormControls, (control, key) => {
+    forOwn(userDetailFormControls, (control: AbstractControl, key: string) => {
       this.setErrorMessageOnSubmit(control, key);
     });
   }

@@ -8,6 +8,7 @@ export enum PagesLinkType {
   INDUCTION = 'induction',
   INDUCTION_DETAILS = 'induction_details',
   INDUCTION_TEST_DETAILS = 'induction_test_details',
+  INDUCTION_FINISHED = 'induction_finish',
 }
 
 export enum InductionLinkType {
@@ -28,4 +29,26 @@ export interface IUser {
   altMobileNo: string;
   address: string;
   createdAt: Date;
+}
+
+export interface IALlQuestions {
+  allQuestions: IQuestions[];
+}
+
+export interface IQuestions {
+  Question: string;
+  Options: IQuestionOptions[];
+  id: number;
+  Answer: string;
+}
+
+export interface IQuestionOptions {
+  label: string;
+  value: string;
+  order: number;
+}
+
+export interface IInductionStep {
+  step: number;
+  inductionType: InductionLinkType;
 }

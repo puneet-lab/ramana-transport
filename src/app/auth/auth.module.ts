@@ -7,9 +7,10 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { InductionDetailComponent } from './induction-detail/induction-detail.component';
 import { InductionTestDetailsComponent } from './induction-test-details/induction-test-details.component';
 import { InductionTestComponent } from './induction-test/induction-test.component';
+import { InductionFinishComponent } from './induction-finish/induction-finish.component';
 
 @NgModule({
-  declarations: [LoginComponent, UserDetailComponent, InductionDetailComponent, InductionTestDetailsComponent, InductionTestComponent],
+  declarations: [LoginComponent, UserDetailComponent, InductionDetailComponent, InductionTestDetailsComponent, InductionTestComponent, InductionFinishComponent],
   imports: [CommonModule, MaterialModule, SharedModule],
   exports: [LoginComponent],
 })

@@ -31,6 +31,10 @@ export class LoginComponent implements OnInit {
       ],
       password: ['123456', Validators.required],
     });
+    console.log(
+      'LoginComponent -> initLoginForm ->  this.loginForm ',
+      this.loginForm
+    );
   }
 
   async onLogin() {
