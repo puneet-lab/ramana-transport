@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { User } from 'firebase';
 import { auth } from 'firebase/app';
 import { BehaviorSubject } from 'rxjs';
+import { UserDetailService } from './user-detail/user-detail.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -12,7 +13,10 @@ export class AuthService {
   private _isSignedIn = false;
   private isSignedIn = new BehaviorSubject(this._isSignedIn);
   isSignedIn$ = this.isSignedIn.asObservable();
-  constructor(public afAuth: AngularFireAuth) {
+  constructor(
+    public afAuth: AngularFireAuth,
+    private userDetailService: UserDetailService
+  ) {
     this.afAuth.authState.subscribe((user: User) => {
       if (user) {
         this.isSignedIn.next(true);
@@ -36,6 +40,7 @@ export class AuthService {
   }
 
   async logout() {
+    this.userDetailService.setUserIdToLocalStorage('');
     await auth().signOut();
     console.log('Youve been signed out!');
   }

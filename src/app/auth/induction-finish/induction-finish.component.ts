@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 import { IUser, UserStatusType } from 'src/app/shared-components/model';
+import { AuthService } from '../auth.service';
 import { InductionService } from '../induction.service';
 import { UserDetailService } from '../user-detail/user-detail.service';
 @Component({
@@ -16,11 +17,12 @@ export class InductionFinishComponent implements OnInit {
   constructor(
     private userDetailService: UserDetailService,
     private inductionService: InductionService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    // this.inductionService.isUserExists();
+    this.inductionService.isUserExists();
     const userID = this.userDetailService.getUserIDFromLocalStorage();
     console.log('InductionFinishComponent -> ngOnInit -> userID', userID);
     if (userID) {
@@ -30,7 +32,6 @@ export class InductionFinishComponent implements OnInit {
   }
 
   getUserDetails(userID: string) {
-    console.log('InductionFinishComponent -> getUserDetails -> userID', userID);
     this.userDetailService.getUserByID(userID).subscribe((user) => {
       this.user = user;
       this.certificateDate = new Date();
@@ -48,7 +49,7 @@ export class InductionFinishComponent implements OnInit {
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       pdf.addImage(imgData, 0, 0, canvas.width, canvas.height);
       pdf.save('converteddoc.pdf');
-      this.userDetailService.setUserIdToLocalStorage('');
+      this.authService.logout();
     });
   }
 }

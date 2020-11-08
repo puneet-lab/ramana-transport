@@ -39,7 +39,16 @@ export class UserDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.userID = this.getUserID();
+    this.clearErrorMessages();
     this.initiateUserDetails();
+  }
+
+  clearErrorMessages() {
+    for (const key in userDetailErrorMessage) {
+      if (Object.prototype.hasOwnProperty.call(userDetailErrorMessage, key)) {
+        userDetailErrorMessage[key] = null;
+      }
+    }
   }
 
   getUserID(): string {

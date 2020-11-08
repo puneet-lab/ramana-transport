@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
 
   async onLogin() {
     if (this.loginForm.invalid) {
+      this.openSnackBar('Please add login details');
       return false;
     }
     this.loadingText = 'Logging you in';
@@ -63,6 +64,6 @@ export class LoginComponent implements OnInit {
   }
 
   openSnackBar(text: string) {
-    this.snackBarService.open(text, '', { duration: 6000 });
+    this.snackBarService.open(text);
   }
 }

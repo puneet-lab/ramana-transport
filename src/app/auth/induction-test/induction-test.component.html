@@ -13,7 +13,7 @@
     </div>
     <button
       (click)="showDetailDialog()"
-      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-3"
     >
       Show Details
     </button>
@@ -29,6 +29,7 @@
               <div
                 class="font-sans font-medium tracking-wider text-base text-gray-800 mb-1"
                 [innerText]="getQuestionForDisplay(i)"
+                [ngClass]="{ 'text-red-600': isError[i] }"
               ></div>
               <div [formGroupName]="i">
                 <div *ngFor="let item of getQuestionOptions(i); let j = index">

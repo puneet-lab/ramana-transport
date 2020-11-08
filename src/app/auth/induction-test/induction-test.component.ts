@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { forOwn } from 'lodash';
 import {
@@ -27,7 +28,6 @@ import { InductionTestDetailsComponent } from '../induction-test-details/inducti
 import { InductionService } from '../induction.service';
 function incorrectAnswer(correctAnswer: string): ValidatorFn {
   return (c: AbstractControl): { [key: string]: boolean } | null => {
-    //console.log(' -> correctAnswer', correctAnswer, c.value);
     if (c.value !== null && c.value !== correctAnswer) {
       return { answerincorrect: true };
     } else {
@@ -45,6 +45,7 @@ export class InductionTestComponent implements OnInit {
   loadingText = 'Getting questions...';
   currentTest: string;
   questions: IQuestions[];
+  isError = [] as Array<boolean>;
 
   allQuestionsForm: FormGroup;
 
@@ -65,7 +66,8 @@ export class InductionTestComponent implements OnInit {
     private route: ActivatedRoute,
     private inductionService: InductionService,
     private fb: FormBuilder,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
     this.route.params.subscribe(async (params) => {
       this.currentTest = params?.type;
@@ -79,7 +81,6 @@ export class InductionTestComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
-    console.log('iscalled');
     this.inductionService.isUserExists();
   }
 
@@ -129,6 +130,7 @@ export class InductionTestComponent implements OnInit {
       questions: this.fb.array([]),
     });
     questions.forEach((question, index) => {
+      this.isError.push(false);
       this.allQuestionArray.push(
         this.fb.group({
           [index]: new FormControl('', [
@@ -147,6 +149,9 @@ export class InductionTestComponent implements OnInit {
   }
 
   showFormError() {
+    this.snackBar.open(
+      'Some answers are incorrect, please check answers again !'
+    );
     const questionFormGroup = this.allQuestionArray.controls;
     forOwn(questionFormGroup, (group: FormGroup, key: string) => {
       const control = group.get(key);
@@ -162,8 +167,21 @@ export class InductionTestComponent implements OnInit {
         .map((key) => validationData[key])
         .join('<br>');
       document.getElementById(errorMessageID).innerHTML = errorMessage;
+      this.isError[controlID] = true;
     } else {
+      this.isError[controlID] = false;
       document.getElementById(errorMessageID).innerHTML = null;
+    }
+    this.scrollToError();
+  }
+
+  scrollToError() {
+    const classElement = document.getElementsByClassName('text-red-600');
+    if (classElement.length > 0) {
+      classElement[0].scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
     }
   }
 
