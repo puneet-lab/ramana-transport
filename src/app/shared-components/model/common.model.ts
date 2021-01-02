@@ -10,6 +10,7 @@ export enum PagesLinkType {
   INDUCTION_DETAILS = 'induction_details',
   INDUCTION_TEST_DETAILS = 'induction_test_details',
   INDUCTION_FINISHED = 'induction_finish',
+  ADMIN_USER_LIST = 'admin/user/list',
 }
 
 export enum InductionLinkType {
@@ -30,11 +31,15 @@ export interface IUser {
   altMobileNo: string;
   address: string;
   status: UserStatusType;
-  createdAt: Date;
+  createdAt: IFirebaseTimestamp | Date;
 }
 
 export interface IALlQuestions {
   allQuestions: IQuestions[];
+}
+
+export interface IFirebaseTimestamp {
+  seconds: number;
 }
 
 export interface IQuestions {

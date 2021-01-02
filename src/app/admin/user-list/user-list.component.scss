@@ -1,0 +1,10 @@
+@import '../../../styles.scss';
+
+table{
+
+  th{
+    background-color: $primary;
+    color: white;
+    padding: 10px;
+  }
+}

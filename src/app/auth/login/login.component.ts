@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase';
 import { PagesLinkType } from 'src/app/shared-components/model';
+import * as env from '../../../environments/environment';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -24,7 +26,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.authService.isSignedIn$.subscribe((isLoggedIn) => {
       if (isLoggedIn) {
-        this.router.navigate([PagesLinkType.USER_DETAILS]);
+        const user = firebase.auth().currentUser.email;
+        const adminEmail = env.environment.adminEmail;
+        user !== adminEmail
+          ? this.router.navigate([PagesLinkType.USER_DETAILS])
+          : this.router.navigate([PagesLinkType.ADMIN_USER_LIST]);
       }
     });
     this.initLoginForm();
@@ -55,8 +61,12 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginResult(isLogin: boolean) {
+    const user = firebase.auth().currentUser.email;
+    const adminEmail = env.environment.adminEmail;
     if (isLogin) {
-      this.router.navigate([PagesLinkType.USER_DETAILS]);
+      user !== adminEmail
+        ? this.router.navigate([PagesLinkType.USER_DETAILS])
+        : this.router.navigate(['/admin/user/list']);
     } else {
       this.openSnackBar('Error in Loggin in, check your email id and password');
     }

@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserListComponent } from './admin/user-list/user-list.component';
 import { AuthGuard } from './auth/auth.guard';
 import { InductionDetailComponent } from './auth/induction-detail/induction-detail.component';
 import { InductionFinishComponent } from './auth/induction-finish/induction-finish.component';
@@ -44,6 +45,11 @@ const routes: Routes = [
   {
     path: `${PagesLinkType.INDUCTION}/:type`,
     component: InductionTestComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: PagesLinkType.ADMIN_USER_LIST,
+    component: UserListComponent,
     canActivate: [AuthGuard],
   },
 ];

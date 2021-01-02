@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { UserListComponent } from '../admin/user-list/user-list.component';
 import { MaterialModule } from '../material.module';
 import { SharedModule } from '../shared-components/shared.module';
 import { InductionDetailComponent } from './induction-detail/induction-detail.component';
@@ -17,6 +18,7 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
     InductionTestDetailsComponent,
     InductionTestComponent,
     InductionFinishComponent,
+    UserListComponent,
   ],
   imports: [CommonModule, MaterialModule, SharedModule],
   exports: [LoginComponent],

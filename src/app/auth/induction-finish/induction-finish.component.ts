@@ -24,7 +24,6 @@ export class InductionFinishComponent implements OnInit {
   ngOnInit(): void {
     this.inductionService.isUserExists();
     const userID = this.userDetailService.getUserIDFromLocalStorage();
-    console.log('InductionFinishComponent -> ngOnInit -> userID', userID);
     if (userID) {
       this.getUserDetails(userID);
       this.updateUserStatus(userID);
@@ -48,7 +47,7 @@ export class InductionFinishComponent implements OnInit {
 
       const imgData = canvas.toDataURL('image/jpeg', 1.0);
       pdf.addImage(imgData, 0, 0, canvas.width, canvas.height);
-      pdf.save('converteddoc.pdf');
+      pdf.save('certificate_ramana_transport.pdf');
       this.authService.logout();
     });
   }

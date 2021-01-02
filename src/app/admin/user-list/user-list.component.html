@@ -1,0 +1,38 @@
+<div class="" *ngIf="userEmail === adminEmail">
+  <table class="m-4">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Mobile</th>
+        <th>Alt Mobile No</th>
+        <th>Address</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let user of userList$ | async; let i = index">
+        <tr class="border">
+          <td class="border p-2">{{ user.firstName }} {{ user.lastName }}</td>
+          <td class="border p-2">{{ user.mobileNo }}</td>
+          <td class="border p-2">{{ user.altMobileNo }}</td>
+          <td class="border p-2">{{ user.address }}</td>
+          <td class="border p-2">{{ user.status }}</td>
+          <td class="border p-2">
+            {{ user.createdAt.seconds * 1000 | date: "dd-MMM-yyyy" }}
+          </td>
+          <td class="border p-2">
+            <span
+              class="material-icons text-red-400 cursor-pointer"
+              (click)="deleteUser(user.userID)"
+            >
+              delete_forever
+            </span>
+            <!--  <span class="material-icons text-green-400"> get_app </span> -->
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

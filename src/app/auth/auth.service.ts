@@ -9,7 +9,6 @@ import { UserDetailService } from './user-detail/user-detail.service';
 })
 export class AuthService {
   user: User;
-  // tslint:disable-next-line: variable-name
   private _isSignedIn = false;
   private isSignedIn = new BehaviorSubject(this._isSignedIn);
   isSignedIn$ = this.isSignedIn.asObservable();
@@ -19,8 +18,10 @@ export class AuthService {
   ) {
     this.afAuth.authState.subscribe((user: User) => {
       if (user) {
+        this.user = user;
         this.isSignedIn.next(true);
       } else {
+        this.user = null;
         this.isSignedIn.next(false);
       }
     });

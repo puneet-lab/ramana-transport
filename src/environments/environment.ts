@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  adminEmail: 'admin@ramanatransport.com',
   firebase: {
     apiKey: 'AIzaSyCKOydeomd7ukNm7BxSB4Ig13aPo6wXZkI',
     authDomain: 'ramana-induction.firebaseapp.com',

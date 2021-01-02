@@ -21,6 +21,10 @@ export class UserDetailService {
       this.setUserIdToLocalStorage(userID);
       return true;
     } catch (error) {
+      console.log(
+        '🚀 ~ file: user-detail.service.ts ~ line 24 ~ UserDetailService ~ saveUserDetailsData ~ error',
+        error
+      );
       this.setUserIdToLocalStorage('');
       return false;
     }
